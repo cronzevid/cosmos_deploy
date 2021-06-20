@@ -1,0 +1,9 @@
+---
+- hosts: cosmos_nodes
+  gather_facts: true
+  become: true
+  roles:
+    - common
+    - ufw
+    - cosmos_node
+    - exporter

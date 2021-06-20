@@ -1,0 +1,3 @@
+ansible==2.10
+mitogen==0.2.9
+ansible-modules-hashivault==4.6.2

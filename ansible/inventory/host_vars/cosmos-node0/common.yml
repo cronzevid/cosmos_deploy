@@ -1,0 +1,5 @@
+---
+go_version: 1.16.4
+packages_custom:
+  - lynis==2.6.2-1
+  - pass==1.7.3-2

@@ -1,0 +1,6 @@
+---
+ufw_allow:
+  ssh:
+    rule: allow
+    port: 22
+    proto: tcp

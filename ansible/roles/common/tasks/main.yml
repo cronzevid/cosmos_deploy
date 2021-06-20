@@ -1,0 +1,31 @@
+---
+- name: Change hostname to inventory name
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Check GO version
+  command: go version
+  register: go_current_version
+
+- name: Install specified GO version
+  block:
+    - name: Download
+      get_url:
+        url: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz "
+        dest: /opt
+        mode: 0755
+    - name: Extract
+      unarchive:
+        src: "/opt/v{{ cosmos_sdk_version }}.tar.gz"
+        dest: /opt
+    - name: Install
+      command: mv /opt/go /usr/local  
+  when: go_version is defined or (go_current_version.split(' ')[2][2:] != go_version)
+
+- name: Install packages_custom
+  package:
+    state: present
+    update_cache: false
+    name: "{{ packages_custom | default([]) }}"
+  when:
+    - packages_custom is defined
