@@ -1,10 +1,4 @@
 ---
-- name: Install Cosmos SDK
-  get_url:
-    url: http://example.com/path/file.conf
-    dest: /etc/foo.conf
-    mode: '0440'
-
 - name: Generate GPG config
   template:
     src: gpg.conf.j2
@@ -16,6 +10,8 @@
 
 - name: Set up password store
   command: pass init {{ gpg_id.stdout_lines[0].split(" ")[2]}}
+  when: not ansible_check_mode
 
 - name: Add key to keyring
   command: simd keys add my_validator --keyring-backend pass
+

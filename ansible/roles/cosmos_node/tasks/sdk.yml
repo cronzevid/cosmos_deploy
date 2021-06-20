@@ -3,6 +3,7 @@
   stat:
     path: "/opt/cosmos-sdk-v{{ cosmos_sdk_version }}"
   register: archive_exists
+  check_mode: true
 
 - name: Install Cosmos SDK
   block:

@@ -7,6 +7,11 @@
   command: go version
   register: go_current_version
 
+- name: Update repo listings
+  apt:
+    update_cache: true
+  when: ansible_distribution == "Ubuntu"
+
 - name: Install specified GO version
   block:
     - name: Download
@@ -18,6 +23,8 @@
       unarchive:
         src: "/opt/v{{ cosmos_sdk_version }}.tar.gz"
         dest: /opt
+        remote_src: true
+      when: not ansible_check_mode
     - name: Install
       command: mv /opt/go /usr/local  
   when: go_version is defined or (go_current_version.split(' ')[2][2:] != go_version)
