@@ -4,8 +4,9 @@
     name: "{{ inventory_hostname }}"
 
 - name: Check GO version
-  command: go version
+  shell: bash -ilc 'go version'
   register: go_current_version
+  ignore_errors: true
 
 - name: Update repo listings
   apt:
@@ -14,20 +15,29 @@
 
 - name: Install specified GO version
   block:
-    - name: Download
+    - name: Download go
       get_url:
         url: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz "
         dest: /opt
         mode: 0755
-    - name: Extract
+    - name: Extract go
       unarchive:
-        src: "/opt/v{{ cosmos_sdk_version }}.tar.gz"
+        src: "/opt/go{{ go_version }}.linux-amd64.tar.gz"
         dest: /opt
         remote_src: true
       when: not ansible_check_mode
-    - name: Install
-      command: mv /opt/go /usr/local  
-  when: go_version is defined or (go_current_version.split(' ')[2][2:] != go_version)
+    - name: Install go
+      command: mv /opt/go /usr/local
+    - name: Create go vars in profile
+      lineinfile:
+        dest: /root/.profile
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      loop:
+        - { regexp: '^export\ GOROOT', line: 'export GOROOT=/usr/local/go' }
+        - { regexp: '^export\ PATH=.*', line: 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH' }
+        - { regexp: '^export\ GOPATH=.*', line: 'export GOPATH=/root/go/' }
+  when: go_version is defined and go_current_version.stdout_lines[0].split(' ')[2][2:] != go_version
 
 - name: Install packages_custom
   package:

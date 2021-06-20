@@ -1,6 +1,6 @@
 ---
-- name: Keys
-  include: keys.yml
-
 - name: SDK
   include: sdk.yml
+
+- name: Keys
+  include: keys.yml

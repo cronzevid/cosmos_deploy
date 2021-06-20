@@ -1,17 +1,28 @@
 ---
-- name: Generate GPG config
-  template:
-    src: gpg.conf.j2
-    dest: /tmp/gpg.conf
+- name: Current pass keys
+  command: pass ls
+  register: pass_vault
 
-- name: Generate GPG key
-  command: gpg --batch --gen-key --pinentry-mode=loopback /tmp/gpg.conf
-  register: gpg_id
+- name: Create pass store
+  block:
+    - name: Generate GPG config
+      template:
+        src: gpg.conf.j2
+        dest: /tmp/gpg.conf
 
-- name: Set up password store
-  command: pass init {{ gpg_id.stdout_lines[0].split(" ")[2]}}
-  when: not ansible_check_mode
+    - name: Generate GPG key
+      command: gpg --batch --gen-key --pinentry-mode=loopback /tmp/gpg.conf
+      register: gpg_id
 
-- name: Add key to keyring
-  command: simd keys add my_validator --keyring-backend pass
+    - name: Remove GPG config
+      file:
+        path: /tmp/gpg.conf
+        state: absent
 
+    - name: Set up password store
+      command: "pass init {{ gpg_id.stderr_lines[0].split(' ')[2]}}"
+      when: not ansible_check_mode
+
+    - name: Add key to keyring
+      command: simd keys add my_validator --keyring-backend pass
+  when: '"my_validator" not in pass_vault.stdout'
