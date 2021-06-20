@@ -15,3 +15,4 @@
   with_items:
     - "{{ ufw_allow }}"
   when: ufw_allow is defined
+  notify: ufw_reload

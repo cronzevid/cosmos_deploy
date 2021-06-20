@@ -1,17 +1,6 @@
 ---
-- name: Generate GPG config
-  template:
-    src: gpg.conf.j2
-    dest: /tmp/gpg.conf
+- name: Keys
+  include: keys.yml
 
-- name: Generate GPG key
-  command: gpg --batch --gen-key --pinentry-mode=loopback /tmp/gpg.conf
-  register: gpg_id
-
-- name: Set up password store
-  command: pass init {{ gpg_id.stdout_lines[0].split(" ")[2]}}
-  when: not ansible_check_mode
-
-- name: Add key to keyring
-  command: simd keys add my_validator --keyring-backend pass
-
+- name: SDK
+  include: sdk.yml
