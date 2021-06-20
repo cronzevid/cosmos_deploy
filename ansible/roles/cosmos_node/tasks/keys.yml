@@ -11,18 +11,22 @@
         dest: /tmp/gpg.conf
 
     - name: Generate GPG key
-      command: gpg --batch --gen-key --pinentry-mode=loopback /tmp/gpg.conf
+      command: gpg --batch --gen-key --pinentry-mode=loopback --passphrase='' /tmp/gpg.conf
+
+    - name: Get GPG key
+      shell: "gpg --list-secret-keys | grep -A1 'sec.*rsa2048' | tail -1 | tr -d ' '"
       register: gpg_id
 
-    - name: Remove GPG config
-      file:
-        path: /tmp/gpg.conf
-        state: absent
-
     - name: Set up password store
-      command: "pass init {{ gpg_id.stderr_lines[0].split(' ')[2]}}"
-      when: not ansible_check_mode
+      command: "pass init {{ gpg_id.stdout }}"
 
     - name: Add key to keyring
       command: simd keys add my_validator --keyring-backend pass
+      register: mnemonic
+
+    - name: Save mnemonic
+      copy:
+        content: "{{ mnemonic.stderr_lines[-1] }}"
+        dest: /opt/mnemonic
+
   when: '"my_validator" not in pass_vault.stdout'
