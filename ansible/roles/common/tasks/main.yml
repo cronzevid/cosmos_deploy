@@ -13,6 +13,12 @@
     update_cache: true
   when: ansible_distribution == "Ubuntu"
 
+- name: Update repo listings
+  apt:
+    name: netcat-openbsd
+    state: absent
+  when: ansible_distribution == "Ubuntu"
+
 - name: Install specified GO version
   block:
     - name: Download go

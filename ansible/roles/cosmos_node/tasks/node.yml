@@ -1,0 +1,35 @@
+---
+- name: Check for service
+  command: systemctl list-unit-files
+  register: all_services
+
+- name: Set up node
+  block:
+    - name: Get node addr
+      command: simd keys show my_validator -a --keyring-backend pass
+      register: node_addr
+
+    - name: Save node addr
+      set_fact:
+        node_address: node_addr.stdout
+
+    - name: Initialize chain
+      command: simd init my_validator --chain-id my-test-chain
+
+    - name: Add genesis account
+      command: "simd add-genesis-account {{ node_addr }} 100000000000stake"
+
+    - name: Promote validator
+      command: simd gentx my_validator 100000000stake --chain-id my-test-chain --keyring-backend pass
+
+    - name: Declare validator
+      command: simd collect-gentxs
+
+    - name: Create systemd service
+      template:
+        dest: /etc/systemd/system/simd-validator.service
+        src: simd-validator.service.j2
+      notify:
+        - simd-validator enable
+        - simd-validator restart
+  when: '"simd-validator" not in all_services.stdout'

@@ -1,0 +1,11 @@
+---
+- name: simd-validator enable
+  systemd:
+    name: simd-validator
+    enabled: true
+    daemon_reload: true
+
+- name: simd-validator restart
+  systemd:
+    name: simd-validator
+    state: restarted
