@@ -2,7 +2,7 @@
 - name: Check for valid tags
   debug:
     msg: "Running play with {{ ansible_run_tags }}, provide either 'custom-chain' or 'cosmos-chain'"
-  failed_when: "'custom-chain' not in ansible_run_tags or 'cosmos-chain' not in ansible_run_tags "
+  failed_when: "'custom-chain' not in ansible_run_tags and 'cosmos-chain' not in ansible_run_tags "
 
 - name: Change hostname to inventory name
   hostname:

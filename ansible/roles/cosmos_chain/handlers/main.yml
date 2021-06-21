@@ -1,11 +1,11 @@
 ---
-- name: simd-validator enable
+- name: gaiad enable
   systemd:
-    name: simd-validator
+    name: gaiad
     enabled: true
     daemon_reload: true
 
-- name: simd-validator restart
+- name: gaiad restart
   systemd:
-    name: simd-validator
+    name: gaiad
     state: restarted

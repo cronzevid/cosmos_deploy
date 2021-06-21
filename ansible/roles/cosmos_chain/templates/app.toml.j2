@@ -1,5 +1,5 @@
-## Base
-minimum-gas-prices = ""
+# Base
+minimum-gas-prices = "{{ gaiad.minimum-gas-prices }}"
 pruning = "default"
 pruning-keep-recent = "0"
 pruning-keep-every = "0"
@@ -20,8 +20,8 @@ prometheus-retention-time = 0
 global-labels = []
 
 [api]
-enable = {{ api.enable }}
-swagger = {{ api.swagger }}
+enable = {{ simd.api.enable }}
+swagger = {{ simd.api.swagger }}
 address = "tcp://0.0.0.0:1317"
 max-open-connections = 1000
 rpc-read-timeout = 10

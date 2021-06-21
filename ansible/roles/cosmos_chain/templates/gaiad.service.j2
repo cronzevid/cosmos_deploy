@@ -1,0 +1,17 @@
+[Unit]
+Description=Run cosmos validator node
+After=network.target network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/gaiad start
+
+TimeoutStartSec=600
+Restart=always
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelTunables=true
+ProtectSystem=full
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

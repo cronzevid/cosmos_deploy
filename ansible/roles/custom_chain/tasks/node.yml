@@ -31,7 +31,7 @@
     src: simd_env
     dest: /opt/simd_env
 
-- name: Create systemd service
+- name: Generate simd config
   template:
     src: app.toml.j2
     dest: /root/.simapp/config/app.toml

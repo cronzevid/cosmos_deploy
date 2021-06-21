@@ -1,6 +1,7 @@
 Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb|
       vb.name = "test-box"
+      vb.memory = 2048
   end
   config.vm.define "test-box"
   config.vm.hostname = "test-box"

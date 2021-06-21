@@ -1,9 +1,6 @@
 ---
-- name: SDK
-  include: sdk.yml
+- name: Install gaia
+  include: gaia.yml
 
-- name: Keys
-  include: keys.yml
-
-- name: Node
+- name: Run node
   include: node.yml
