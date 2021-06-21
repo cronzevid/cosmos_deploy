@@ -3,7 +3,13 @@
   gather_facts: true
   become: true
   roles:
-    - common
-    - ufw
-    - cosmos_node
-    - exporter
+    - role: common
+      tags: [ 'always' ]
+    - role: ufw
+      tags: [ 'always' ]
+    - role: custom_chain
+      tags: [ 'custom-chain', 'never' ]
+    - role: cosmos_chain
+      tags: [ 'cosmos-chain', 'never' ]
+    - role: exporter
+      tags: [ 'always' ]

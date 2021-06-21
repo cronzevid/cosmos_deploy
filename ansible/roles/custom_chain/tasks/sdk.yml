@@ -1,0 +1,27 @@
+---
+- name: Check for Cosmos SDK dir
+  stat:
+    path: "/opt/cosmos-sdk-{{ cosmos_sdk_version }}"
+  register: archive
+  check_mode: true
+
+- name: Install Cosmos SDK
+  block:
+    - name: Download
+      get_url:
+        url: "https://github.com/cosmos/cosmos-sdk/archive/refs/tags/v{{ cosmos_sdk_version }}.tar.gz"
+        dest: /opt
+        mode: 0755
+    - name: Extract
+      unarchive:
+        src: "/opt/cosmos-sdk-{{ cosmos_sdk_version }}.tar.gz"
+        dest: /opt
+        remote_src: true
+    - name: Compile
+      shell: "source /root/.profile && make build-linux"
+      args:
+        chdir: "/opt/cosmos-sdk-{{ cosmos_sdk_version }}"
+        executable: /bin/bash
+    - name: Install
+      command: "mv /opt/cosmos-sdk-{{ cosmos_sdk_version }}/build/simd /usr/local/bin"
+  when: not archive.stat.exists
