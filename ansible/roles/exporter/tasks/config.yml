@@ -1,0 +1,8 @@
+---
+- name: Create systemd service
+  template:
+    src: exporter.service.j2
+    dest: /etc/systemd/system/exporter.service
+  notify:
+    - exporter enable
+    - exporter restart

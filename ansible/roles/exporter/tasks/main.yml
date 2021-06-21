@@ -1,4 +1,6 @@
 ---
-- name: Dummy task
-  debug:
-    msg: "Hello world!"
+- name: Get exporter
+  include: install.yml
+
+- name: Config exporter
+  include: config.yml

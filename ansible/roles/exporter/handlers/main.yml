@@ -1,0 +1,11 @@
+---
+- name: exporter enable
+  systemd:
+    name: exporter
+    enabled: true
+    daemon_reload: true
+
+- name: exporter restart
+  systemd:
+    name: exporter
+    state: restarted

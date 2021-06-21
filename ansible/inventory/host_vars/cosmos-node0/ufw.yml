@@ -15,3 +15,6 @@ ufw_allow:
   - rule: allow
     port: 9090
     proto: tcp
+  - rule: allow
+    port: 1317
+    proto: tcp

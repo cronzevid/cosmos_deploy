@@ -1,0 +1,16 @@
+[Unit]
+Description=Run metrics exporter
+After=network.target network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/cosmos_exporter
+TimeoutStartSec=600
+Restart=always
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelTunables=true
+ProtectSystem=full
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target
