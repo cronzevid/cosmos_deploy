@@ -33,6 +33,13 @@
 
 - name: Create systemd service
   template:
+    src: app.toml.j2
+    dest: /root/.simapp/config/app.toml
+  notify:
+    - simd-validator restart
+
+- name: Create systemd service
+  template:
     src: simd-validator.service.j2
     dest: /etc/systemd/system/simd-validator.service
   notify:
