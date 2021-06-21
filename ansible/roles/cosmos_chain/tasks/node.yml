@@ -1,4 +1,9 @@
 ---
+- name: Environment file
+  copy:
+    src: gaiad_env
+    dest: /opt/gaiad_env
+
 - name: Create systemd service
   template:
     src: gaiad.service.j2

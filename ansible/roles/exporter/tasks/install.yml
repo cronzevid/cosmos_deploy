@@ -6,8 +6,8 @@
     clone: true
     update: true
 
-- name: Compile exporter
-  shell: "source /root/.profile && go build -o cosmos_exporter"
-  args:
-    chdir: "/opt/cosmos_exporter-{{ cosmos_sdk_version }}"
-    executable: /bin/bash
+#- name: Compile exporter
+#  shell: "source /root/.profile && go build -o cosmos_exporter"
+#  args:
+#    chdir: "/opt/cosmos_exporter"
+#    executable: /bin/bash

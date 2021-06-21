@@ -10,7 +10,7 @@ gaiad:
   api:
     enable: "true"
     swagger: "true"
-  minimum-gas-prices: "0.025uatom"
+  minimum_gas_prices: "0.025uatom"
   seeds:
     - bf8328b66dceb4987e5cd94430af66045e59899f@public-seed.cosmos.vitwit.com:26656
     - cfd785a4224c7940e9a10f6c1ab24c343e923bec@164.68.107.188:26656
