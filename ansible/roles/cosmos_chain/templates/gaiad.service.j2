@@ -7,6 +7,8 @@ ExecStart=/usr/local/bin/gaiad start --x-crisis-skip-assert-invariants
 EnvironmentFile=/opt/gaiad_env
 TimeoutStartSec=600
 Restart=always
+StartLimitInterval=90  
+StartLimitBurst=3
 
 [Install]
 WantedBy=multi-user.target
