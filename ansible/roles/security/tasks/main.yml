@@ -20,7 +20,7 @@
     - name: Install lynis
       copy:
         src: "/opt/lynis-{{ lynis_version }}/lynis"
-        dest: /usr/local/lynis
+        dest: /usr/local/bin/lynis
         remote_src: true
         mode: '0755'
       when: not ansible_check_mode
