@@ -6,6 +6,7 @@ packages_custom:
   - gcc=4:9.3.0-1ubuntu2
   - make=4.2.1-1.2
   - libc6-dev=2.31-0ubuntu9.2
+  - lynis
   - net-tools
   - jq
   - vim

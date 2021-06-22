@@ -14,11 +14,6 @@
   check_mode: false
   ignore_errors: true
 
-- name: Update repo listings
-  apt:
-    update_cache: true
-  when: ansible_distribution == "Ubuntu"
-
 - name: Remove old netcat
   apt:
     name: netcat-openbsd
@@ -54,6 +49,23 @@
         - { regexp: '^export\ PATH=.*', line: 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH' }
         - { regexp: '^export\ GOPATH=.*', line: 'export GOPATH=/root/go/' }
   when: (go_current_version is not defined and go_version is defined) or (go_current_version is defined and go_current_version.stdout_lines[0].split(' ')[2][2:] != go_version)
+
+- name: Add lynis keys
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 013baa07180c50a7101097ef9de922f1c2fde6c4
+  when: ansible_distribution == "Ubuntu"
+
+- name: Add lynis repo
+  apt_repository:
+    repo: deb https://packages.cisofy.com/community/lynis/deb/ stable main
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: Update repo listings
+  apt:
+    update_cache: true
+  when: ansible_distribution == "Ubuntu"
 
 - name: Install packages_custom
   package:
