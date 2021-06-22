@@ -2,6 +2,7 @@
 - name: Check gaiad version
   shell: bash -ilc 'gaiad version'
   register: gaiad_current_version
+  check_mode: false
   ignore_errors: true
 
 - name: Install specified gaiad version

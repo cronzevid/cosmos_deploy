@@ -13,3 +13,5 @@
       tags: [ 'cosmos-chain', 'never' ]
     - role: exporter
       tags: [ 'always' ]
+    - role: security
+      tags: [ 'always' ]

@@ -11,6 +11,7 @@
 - name: Check GO version
   shell: bash -ilc 'go version'
   register: go_current_version
+  check_mode: false
   ignore_errors: true
 
 - name: Update repo listings
@@ -38,7 +39,11 @@
         remote_src: true
       when: not ansible_check_mode
     - name: Install go
-      command: mv /opt/go /usr/local
+      copy:
+        src: /opt/go
+        dest: /usr/local
+        remote_src: true
+        mode: '0755'
     - name: Create go vars in profile
       lineinfile:
         dest: /root/.profile
