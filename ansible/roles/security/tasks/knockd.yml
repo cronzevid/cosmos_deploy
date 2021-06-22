@@ -1,7 +1,7 @@
 ---
 - name: Set up knockd
   template:
-    src: knockd.j2
+    src: knockd.conf.j2
     dest: /etc/knockd.conf
   notify:
     - knockd restart

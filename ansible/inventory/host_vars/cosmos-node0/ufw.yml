@@ -1,9 +1,6 @@
 ---
 ufw_allow:
   - rule: allow
-    port: 22
-    proto: tcp
-  - rule: allow
     port: 26657
     proto: tcp
   - rule: allow

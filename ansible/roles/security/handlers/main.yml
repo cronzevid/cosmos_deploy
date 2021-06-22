@@ -3,11 +3,15 @@
   systemd:
     name: sshd
     state: restarted
+    enabled: true
+    daemon_reload: true
 
 - name: knockd restart
   systemd:
     name: knockd
     state: restarted
+    enabled: true
+    daemon_reload: true
 
 - name: sysctl apply
   command: sysctl --system
