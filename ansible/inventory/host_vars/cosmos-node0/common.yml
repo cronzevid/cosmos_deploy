@@ -10,6 +10,7 @@ packages_custom:
   - rkhunter
   - clamav
   - auditd
+  - knockd
   - net-tools
   - jq
   - vim

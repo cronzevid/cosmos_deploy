@@ -4,5 +4,10 @@
     name: sshd
     state: restarted
 
+- name: knockd restart
+  systemd:
+    name: knockd
+    state: restarted
+
 - name: sysctl apply
   command: sysctl --system
