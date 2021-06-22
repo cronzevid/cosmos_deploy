@@ -18,7 +18,7 @@
     update_cache: true
   when: ansible_distribution == "Ubuntu"
 
-- name: Update repo listings
+- name: Remove old netcat
   apt:
     name: netcat-openbsd
     state: absent
