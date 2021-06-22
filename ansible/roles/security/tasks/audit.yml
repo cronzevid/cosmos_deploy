@@ -1,0 +1,8 @@
+- name: Run audit
+  shell: lynis audit system --nocolors | grep 'Hardening index'
+  ignore_errors: true
+  register: audit_result
+
+- name: Output index
+  debug:
+    msg: "{{ audit_result.stdout }}"

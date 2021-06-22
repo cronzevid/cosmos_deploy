@@ -1,0 +1,55 @@
+---
+- name: Create security update list
+  shell: cp /etc/apt/sources.list /etc/apt/security.sources.list
+
+- name: Install the security updates
+  shell: "apt-get upgrade -y -o Dir::Etc::SourceList=/etc/apt/security.sources.list"
+
+- name: SSH hardening
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+  notify:
+    - sshd restart
+
+- name: Blacklist unused protocols
+  lineinfile:
+    dest: /etc/modprobe.d/blacklist.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - { regexp: '^blacklist dccp', line: 'blacklist dccp' }
+    - { regexp: '^blacklist sctp', line: 'blacklist sctp' }
+    - { regexp: '^blacklist rds', line: 'blacklist rds' }
+    - { regexp: '^blacklist tipc', line: 'blacklist tipc' }
+
+- name: Remove unused packages
+  apt:
+    name:
+      - gcc
+      - make
+      - libc6-dev
+      - postfix
+    state: absent
+
+- name: Tune sysctl
+  template:
+    src: sysctl.conf.j2
+    dest: /etc/sysctl.conf
+  notify:
+    - sysctl apply
+
+- name: ClavAV job
+  cron:
+    name: "clamav checks"
+    minute: "20"
+    job: "clamscan 2>&1 > /var/log/clamav.log"
+
+- name: rkhunter job
+  cron:
+    name: "clamav checks"
+    minute: "20"
+    job: "rkhunter --cronjob"
+
+- name: Run audit
+  include: audit.yml
