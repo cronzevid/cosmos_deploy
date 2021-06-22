@@ -8,6 +8,11 @@
   hostname:
     name: "{{ inventory_hostname }}"
 
+- name: Template /etc/hosts
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+
 - name: Check GO version
   shell: bash -ilc 'go version'
   register: go_current_version
