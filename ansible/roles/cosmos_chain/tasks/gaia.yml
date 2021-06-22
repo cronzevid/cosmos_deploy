@@ -23,5 +23,8 @@
     - name: Extract genesis
       command: gunzip /opt/genesis.cosmoshub-4.json.gz
     - name: Move genesis
-      command: cp /opt/genesis.cosmoshub-4.json ~/.gaia/config/genesis.json
+      copy:
+        src: /opt/genesis.cosmoshub-4.json
+        dest: ~/.gaia/config/genesis.json
+        remote_src: true
   when: gaiad_version is defined and gaiad_current_version.stdout[1:] != gaiad_version
