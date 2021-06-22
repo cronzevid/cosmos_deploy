@@ -5,12 +5,14 @@
     dest: /opt/cosmos_exporter
     clone: true
     update: true
+  register: repo_update
 
 - name: Compile exporter
   shell: "source /root/.profile && go build -o cosmos-exporter"
   args:
     chdir: "/opt/cosmos_exporter"
     executable: /bin/bash
+  when: repo_update.changed
 
 - name: Copy exporter executable
   copy:
@@ -18,3 +20,5 @@
     dest: /usr/local/bin/cosmos-exporter
     remote_src: true
     mode: '0755'
+  notify:
+    - exporter restart
