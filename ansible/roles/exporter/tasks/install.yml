@@ -17,3 +17,4 @@
     src: /opt/cosmos_exporter/cosmos-exporter
     dest: /usr/local/bin/cosmos-exporter
     remote_src: true
+    mode: '0755'
