@@ -48,7 +48,7 @@
         - { regexp: '^export\ GOROOT', line: 'export GOROOT=/usr/local/go' }
         - { regexp: '^export\ PATH=.*', line: 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH' }
         - { regexp: '^export\ GOPATH=.*', line: 'export GOPATH=/root/go/' }
-  when: go_version is defined or (go_version is defined and go_current_version.stdout_lines[0].split(' ')[2][2:] != go_version)
+  when: (go_current_version is not defined and go_version is defined) or (go_current_version is defined and go_current_version.stdout_lines[0].split(' ')[2][2:] != go_version)
 
 - name: Install packages_custom
   package:
