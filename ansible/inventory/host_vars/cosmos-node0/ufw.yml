@@ -1,5 +1,6 @@
 ---
 ufw_allow:
+  #gaiad
   - rule: allow
     port: 26657
     proto: tcp
@@ -14,4 +15,18 @@ ufw_allow:
     proto: tcp
   - rule: allow
     port: 1317
+    proto: tcp
+  #knockd
+  - rule: allow
+    port: 2088
+    proto: tcp
+  - rule: allow
+    port: 1112
+    proto: tcp
+  - rule: allow
+    port: 27917
+    proto: tcp
+  #exporter
+  - rule: allow
+    port: 8080
     proto: tcp
