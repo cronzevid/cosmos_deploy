@@ -15,7 +15,7 @@
     - name: Install gaiad
       command: "mv /opt/gaiad-v{{ gaiad_version }}-linux-amd64 /usr/local/bin/gaiad"
     - name: Init gaiad
-      command: gaiad init my_cosmos_node
+      command: "gaiad init {{ gaiad.moniker }}"
     - name: Download genesis
       get_url:
         url: "https://github.com/cosmos/mainnet/raw/master/genesis.cosmoshub-4.json.gz"

@@ -7,6 +7,7 @@ simd:
     enable: "true"
     swagger: "true"
 gaiad:
+  gaiad.moniker: "cosmos-node0"
   api:
     enable: "true"
     swagger: "true"

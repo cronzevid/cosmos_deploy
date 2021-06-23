@@ -1,7 +1,7 @@
 # Base
 
 proxy_app = "tcp://127.0.0.1:26658"
-moniker = "my_cosmos_node"
+moniker = "{{ gaiad.moniker }}"
 fast_sync = true
 db_backend = "goleveldb"
 db_dir = "data"
@@ -35,7 +35,7 @@ pprof_laddr = "localhost:6060"
 
 [p2p]
 laddr = "tcp://0.0.0.0:26656"
-external_address = ""
+external_address = "tcp://{{ ansible_host}}:26656"
 seeds = "{{ gaiad.seeds | join(',') }}"
 persistent_peers = "{{ gaiad.peers | join(',') }}"
 upnp = false
