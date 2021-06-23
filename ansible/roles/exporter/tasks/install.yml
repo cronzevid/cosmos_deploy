@@ -12,7 +12,7 @@
   args:
     chdir: "/opt/cosmos_exporter"
     executable: /bin/bash
-  when: repo_update.changed
+  when: repo_update.changed and not ansible_check_mode
 
 - name: Copy exporter executable
   copy:
@@ -20,5 +20,6 @@
     dest: /usr/local/bin/cosmos-exporter
     remote_src: true
     mode: '0755'
+  when: not ansible_check_mode
   notify:
     - exporter restart

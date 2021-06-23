@@ -28,4 +28,5 @@
         src: /opt/genesis.cosmoshub-4.json
         dest: ~/.gaia/config/genesis.json
         remote_src: true
+      when: not ansible_check_mode
   when: gaiad_version is defined and gaiad_current_version.stdout[1:] != gaiad_version
