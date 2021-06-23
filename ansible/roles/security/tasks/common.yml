@@ -47,6 +47,6 @@
 
 - name: rkhunter job
   cron:
-    name: "clamav checks"
+    name: "rkhunter checks"
     minute: "20"
     job: "rkhunter --cronjob"
