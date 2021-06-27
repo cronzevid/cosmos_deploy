@@ -1,6 +1,6 @@
 [Unit]
 Description=Run metrics exporter
-After=network.target network-online.target
+After=network.target network-online.target gaiad.service
 
 [Service]
 ExecStart=/usr/local/bin/cosmos-exporter -config-path /home/{{ gaiad.user }}/.gaia/config/addrbook.json
