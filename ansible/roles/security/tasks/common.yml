@@ -12,6 +12,19 @@
   notify:
     - sshd restart
 
+- name: Audit rules
+  copy:
+    src: audit.rules
+    dest: /etc/audit/audit.rules
+  notify:
+    - auditd restart
+
+- name: Disable core dump
+  lineinfile:
+    dest: /etc/security/limits.conf
+    regexp: "^hard core 0"
+    line: "hard core 0"
+
 - name: Blacklist unused protocols
   lineinfile:
     dest: /etc/modprobe.d/blacklist.conf
@@ -33,6 +46,10 @@
     state: absent
     autoremove: true
     autoclean: true
+
+- name: Clean purged
+  shell: pkgs=$(dpkg -l | grep '^rc' | awk '{print $2}'); [ -n "$pkgs" ] && echo $pkgs | xargs dpkg --purge
+  ignore_errors: true
 
 - name: Tune sysctl
   template:

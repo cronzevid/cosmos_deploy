@@ -13,6 +13,11 @@
     src: hosts.j2
     dest: /etc/hosts
 
+- name: Template /etc/issue
+  template:
+    src: issue.j2
+    dest: /etc/issue
+
 - name: Check GO version
   shell: bash -ilc 'go version'
   register: go_current_version

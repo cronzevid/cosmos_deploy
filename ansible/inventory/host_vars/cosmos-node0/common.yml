@@ -16,3 +16,6 @@ packages_custom:
   - vim
   - tmux
   - netcat
+  - sysstat
+  - debsums
+ssh_port: 291
