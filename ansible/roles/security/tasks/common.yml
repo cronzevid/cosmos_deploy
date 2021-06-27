@@ -31,6 +31,8 @@
       - libc6-dev
       - postfix
     state: absent
+    autoremove: true
+    autoclean: true
 
 - name: Tune sysctl
   template:

@@ -1,5 +1,5 @@
 [Unit]
-Description=Run cosmos validator node
+Description=Run cosmos node
 After=network.target network-online.target
 
 [Service]
@@ -9,6 +9,8 @@ TimeoutStartSec=600
 Restart=always
 StartLimitInterval=90  
 StartLimitBurst=3
+User={{ gaiad.user }}
+Group={{ gaiad.user }}
 
 [Install]
 WantedBy=multi-user.target

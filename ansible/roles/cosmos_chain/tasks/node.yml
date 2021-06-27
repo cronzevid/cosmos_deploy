@@ -1,7 +1,20 @@
 ---
+- name: Add group
+  group:
+    name: "{{ gaiad.user }}"
+    state: present
+
+- name: Add user
+  user:
+    name: "{{ gaiad.user }}"
+    groups: "{{ gaiad.user }}"
+    shell: /sbin/nologin
+    append: true
+    state: present
+
 - name: Environment file
-  copy:
-    src: gaiad_env
+  template:
+    src: gaiad_env.j2
     dest: /opt/gaiad_env
 
 - name: Create systemd service
@@ -15,13 +28,13 @@
 - name: Generate gaiad app config
   template:
     src: app.toml.j2
-    dest: /root/.gaia/config/app.toml
+    dest: "/home/{{ gaiad.user }}/.gaia/config/app.toml"
   notify:
     - gaiad restart
 
 - name: Generate gaiad config
   template:
     src: config.toml.j2
-    dest: /root/.gaia/config/config.toml
+    dest: "/home/{{ gaiad.user }}/.gaia/config/config.toml"
   notify:
     - gaiad restart

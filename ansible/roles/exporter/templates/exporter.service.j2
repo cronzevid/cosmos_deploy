@@ -3,9 +3,11 @@ Description=Run metrics exporter
 After=network.target network-online.target
 
 [Service]
-ExecStart=/usr/local/bin/cosmos-exporter
+ExecStart=/usr/local/bin/cosmos-exporter -config-path /home/{{ gaiad.user }}/.gaia/config/addrbook.json
 TimeoutStartSec=600
 Restart=always
+User=exporter
+Group=exporter
 
 [Install]
 WantedBy=multi-user.target
