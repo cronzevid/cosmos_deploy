@@ -58,6 +58,12 @@
   notify:
     - sysctl apply
 
+- name: Sysctl job
+  cron:
+    name: "apply sysctl"
+    minute: "20"
+    job: "sysctl -p"
+
 - name: ClavAV job
   cron:
     name: "clamav checks"
