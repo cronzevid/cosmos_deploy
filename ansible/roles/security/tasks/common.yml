@@ -15,7 +15,7 @@
 - name: Audit rules
   copy:
     src: audit.rules
-    dest: /etc/audit/audit.rules
+    dest: /etc/audit/rules.d/audit.rules
   notify:
     - auditd restart
 

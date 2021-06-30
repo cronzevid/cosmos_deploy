@@ -22,7 +22,7 @@ global-labels = []
 [api]
 enable = {{ simd.api.enable }}
 swagger = {{ simd.api.swagger }}
-address = "tcp://0.0.0.0:1317"
+address = "tcp://127.0.0.1:1317"
 max-open-connections = 1000
 rpc-read-timeout = 10
 rpc-write-timeout = 0
@@ -30,7 +30,7 @@ rpc-max-body-bytes = 1000000
 enabled-unsafe-cors = false
 
 [grpc]
-enable = true
+enable = false
 address = "0.0.0.0:9090"
 
 [state-sync]
