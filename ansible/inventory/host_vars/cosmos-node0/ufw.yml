@@ -2,19 +2,7 @@
 ufw_allow:
   #gaiad
   - rule: allow
-    port: 26657
-    proto: tcp
-  - rule: allow
-    port: 6060
-    proto: tcp
-  - rule: allow
     port: 26656
-    proto: tcp
-  - rule: allow
-    port: 9090
-    proto: tcp
-  - rule: allow
-    port: 1317
     proto: tcp
   #knockd
   - rule: allow
